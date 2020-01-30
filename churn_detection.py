@@ -128,8 +128,8 @@ def predict(util_df,cluster):
         XGB = joblib.load(filename)
     except:
         raise ValueError('Le modèle n\'est pas entrainé, vous devez entrainer le modèle avant de prédire')
-    predictions = XGB.predict(util_df_scaled)
-    churner = pd.DataFrame(predictions, index=util_df.client_id, columns=['prediction'])
+    predictions = XGB.XGB.predict_proba(X_test)[:,-1]
+    churner = pd.DataFrame(predictions, index=util_df.index, columns=['prediction'])
     return churner.prediction.sort_values(ascending=False)
 
 def labelize(cluster,df):
